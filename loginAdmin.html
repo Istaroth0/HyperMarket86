@@ -143,6 +143,29 @@
           font-size: 1.3rem;
         }
       }
+
+      /* Ripple effect for admin login button */
+      .admin-login-btn-ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        animation: admin-login-btn-ripple 0.7s linear;
+        background-color: rgba(255, 255, 255, 0.4);
+        pointer-events: none;
+        width: 120px;
+        height: 120px;
+        z-index: 5;
+      }
+      @keyframes admin-login-btn-ripple {
+        to {
+          transform: scale(2.5);
+          opacity: 0;
+        }
+      }
+      .admin-login-btn-spinner {
+        background: rgba(44, 62, 80, 0.25);
+        border-radius: 0.8rem;
+      }
     </style>
   </head>
   <body class="flex items-center justify-center min-h-screen">
@@ -212,9 +235,35 @@
         <!-- Submit Button -->
         <button
           type="submit"
-          class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-semibold rounded-lg text-md px-5 py-3 text-center transition duration-300 ease-in-out"
+          id="admin-login-btn"
+          class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-semibold rounded-lg text-md px-5 py-3 text-center transition duration-300 ease-in-out relative overflow-hidden"
+          style="position: relative"
         >
-          Login as Administrator
+          <span class="admin-login-btn-text">Login as Administrator</span>
+          <span
+            class="admin-login-btn-spinner hidden absolute inset-0 flex items-center justify-center z-10"
+          >
+            <svg
+              class="animate-spin h-6 w-6 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              ></path>
+            </svg>
+          </span>
         </button>
 
         <!-- Switch to Staff Login -->
@@ -231,5 +280,38 @@
 
     <!-- Add JavaScript file -->
     <script type="module" src="loginAdmin.js"></script>
+    <script>
+      // Animation for admin login button
+      const adminLoginForm = document.getElementById("adminLoginForm");
+      const adminLoginBtn = document.getElementById("admin-login-btn");
+      const adminBtnText = adminLoginBtn.querySelector(".admin-login-btn-text");
+      const adminBtnSpinner = adminLoginBtn.querySelector(
+        ".admin-login-btn-spinner"
+      );
+
+      adminLoginForm.addEventListener("submit", function (e) {
+        // Ripple effect
+        const rect = adminLoginBtn.getBoundingClientRect();
+        const ripple = document.createElement("span");
+        ripple.className = "admin-login-btn-ripple";
+        ripple.style.left = e.clientX - rect.left + "px";
+        ripple.style.top = e.clientY - rect.top + "px";
+        adminLoginBtn.appendChild(ripple);
+
+        // Show spinner, hide text
+        adminBtnText.style.opacity = "0.5";
+        adminBtnSpinner.classList.remove("hidden");
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 700);
+
+        // Remove spinner after 1.5s (simulate login)
+        setTimeout(() => {
+          adminBtnSpinner.classList.add("hidden");
+          adminBtnText.style.opacity = "1";
+        }, 1500);
+      });
+    </script>
   </body>
 </html>
