@@ -132,11 +132,12 @@
       </div>
     </main>
 
-    <!-- Add JavaScript files -->
+    <!-- Add JavaScript files at the end of body for proper DOM loading -->
     <script type="module">
-      import AdminSideNav from "../Utils/adminSideNav.js";
+      import AdminSideNav from "./adminSideNav.js";
       new AdminSideNav();
     </script>
     <script type="module" src="adminDashboard.js"></script>
   </body>
+</html>
 </html>
