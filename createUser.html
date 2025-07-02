@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create User - HyperMarket</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../CSS/createUser.css" />
+    <!-- Side Navigation CSS -->
+    <link rel="stylesheet" href="../Utils/sideNav.css" />
+  </head>
+  <body class="min-h-screen bg-[#121416]">
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+      <div class="max-w-md mx-auto">
+        <h1 class="text-3xl font-bold text-white mb-6">Create New User</h1>
+
+        <form id="createUserForm" class="bg-[#1a1d21] p-6 rounded-lg shadow-lg">
+          <!-- Email Input -->
+          <div class="mb-4">
+            <label
+              for="email"
+              class="block text-sm font-medium text-gray-300 mb-2"
+              >Email Address</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="bg-[#2a2d31] border border-gray-700 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
+              required
+            />
+          </div>
+
+          <!-- Password Input -->
+          <div class="mb-4">
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-300 mb-2"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="bg-[#2a2d31] border border-gray-700 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
+              required
+            />
+          </div>
+
+          <!-- Role Selection -->
+          <div class="mb-6">
+            <label
+              for="role"
+              class="block text-sm font-medium text-gray-300 mb-2"
+              >User Role</label
+            >
+            <select
+              id="role"
+              name="role"
+              class="bg-[#2a2d31] border border-gray-700 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
+            >
+              <option value="staff">Staff</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          <!-- Message Area -->
+          <div id="message-area" class="mb-4 text-sm text-center"></div>
+
+          <!-- Animated Success Checkmark -->
+          <div id="success-animation" class="flex justify-center mb-4 hidden">
+            <svg
+              class="w-28 h-28 text-green-400 drop-shadow-lg animate-flash-spin"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              viewBox="0 0 24 24"
+              style="filter: drop-shadow(0 0 16px #22d3ee)"
+            >
+              <defs>
+                <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#6ee7b7" stop-opacity="0.8" />
+                  <stop offset="100%" stop-color="#22d3ee" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="url(#glow)"
+                stroke-opacity="0.7"
+                fill="url(#glow)"
+              />
+              <path
+                d="M7 13l3 3 7-7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="filter: drop-shadow(0 0 8px #6ee7b7)"
+              />
+            </svg>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
+          >
+            Create User
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <!-- Add JavaScript files -->
+    <script type="module">
+      import AdminSideNav from "./adminSideNav.js";
+      new AdminSideNav();
+    </script>
+    <script type="module" src="./createUser.js"></script>
+    <style>
+      @keyframes flash-spin {
+        0% {
+          transform: scale(0.8) rotate(0deg);
+          opacity: 0.7;
+          filter: drop-shadow(0 0 0px #22d3ee);
+        }
+        30% {
+          transform: scale(1.1) rotate(20deg);
+          opacity: 1;
+          filter: drop-shadow(0 0 24px #22d3ee);
+        }
+        60% {
+          transform: scale(1) rotate(-10deg);
+          opacity: 1;
+          filter: drop-shadow(0 0 16px #6ee7b7);
+        }
+        100% {
+          transform: scale(1) rotate(0deg);
+          opacity: 1;
+          filter: drop-shadow(0 0 8px #22d3ee);
+        }
+      }
+      .animate-flash-spin {
+        animation: flash-spin 1.2s cubic-bezier(0.4, 2, 0.6, 1) infinite
+          alternate;
+      }
+    </style>
+  </body>
+</html>

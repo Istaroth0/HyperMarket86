@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loan Calculator - HyperMarket</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../CSS/calculator.css" />
+    <!-- Side Navigation CSS -->
+    <link rel="stylesheet" href="../Utils/sideNav.css" />
+    <style>
+      /* Calculator styles */
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #121416;
+        background-image: linear-gradient(to bottom right, #121416, #1a1d21);
+        color: #ffffff;
+      }
+
+      /* Form styles */
+      .form-group {
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .form-group:focus-within {
+        transform: translateY(-2px);
+      }
+
+      input[type="number"] {
+        transition: all 0.3s ease-in-out;
+      }
+
+      input[type="number"]:focus {
+        background-color: #2f3237 !important;
+        box-shadow: 0 0 0 2px rgba(92, 184, 92, 0.2);
+      }
+
+      /* Remove number input arrows */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        appearance: textfield;
+        -moz-appearance: textfield;
+      }
+
+      /* Result card animations */
+      .bg-dark {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        background-color: #2a2d31;
+      }
+
+      .bg-dark:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Button styles */
+      button {
+        transition: all 0.3s ease-in-out;
+      }
+
+      button.text-green-400 {
+        animation: pulse 1s;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen">
+    <main class="container mx-auto px-4 py-8">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-white mb-6">Loan Calculator</h1>
+
+        <!-- Input Card -->
+        <div class="bg-[#1a1d21] p-6 rounded-lg shadow-lg mb-6">
+          <div class="grid gap-6">
+            <!-- Loan Amount -->
+            <div class="form-group">
+              <label
+                for="loan-amount"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Loan Amount (PHP):</label
+              >
+              <input
+                type="number"
+                id="loan-amount"
+                class="bg-[#2a2d31] border border-gray-700 text-white text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-3"
+                placeholder="Enter loan amount"
+              />
+            </div>
+
+            <!-- Customer Down -->
+            <div class="form-group">
+              <label
+                for="customer-down-payment"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Customer's Down Payment (PHP):</label
+              >
+              <input
+                type="number"
+                id="customer-down-payment"
+                class="bg-[#2a2d31] border border-gray-700 text-white text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-3"
+                placeholder="Enter customer's down payment"
+              />
+            </div>
+
+            <!-- Seller Down -->
+            <div class="form-group">
+              <label
+                for="seller-down-payment"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Seller's Down Payment (PHP):</label
+              >
+              <input
+                type="number"
+                id="seller-down-payment"
+                class="bg-[#2a2d31] border border-gray-700 text-white text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-3"
+                placeholder="Enter seller's down payment"
+              />
+            </div>
+
+            <!-- Calculate Button -->
+            <button
+              onclick="calculateAll()"
+              class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300"
+            >
+              Calculate
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="bg-[#1a1d21] p-6 rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold text-white mb-4">Monthly Payments</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- 48 Months -->
+            <div
+              class="bg-[#2a2d31] p-6 rounded-lg transform transition-all duration-300 hover:scale-105"
+            >
+              <h3 class="text-lg font-semibold text-white mb-3">48 Months</h3>
+              <div class="flex flex-col space-y-2">
+                <span id="result-48" class="text-2xl font-bold text-green-400"
+                  >₱0.00</span
+                >
+                <button
+                  onclick="copyResult('result-48')"
+                  class="mt-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-colors duration-200"
+                >
+                  Copy Amount
+                </button>
+              </div>
+            </div>
+
+            <!-- 36 Months -->
+            <div
+              class="bg-[#2a2d31] p-6 rounded-lg transform transition-all duration-300 hover:scale-105"
+            >
+              <h3 class="text-lg font-semibold text-white mb-3">36 Months</h3>
+              <div class="flex flex-col space-y-2">
+                <span id="result-36" class="text-2xl font-bold text-green-400"
+                  >₱0.00</span
+                >
+                <button
+                  onclick="copyResult('result-36')"
+                  class="mt-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-colors duration-200"
+                >
+                  Copy Amount
+                </button>
+              </div>
+            </div>
+
+            <!-- 24 Months -->
+            <div
+              class="bg-[#2a2d31] p-6 rounded-lg transform transition-all duration-300 hover:scale-105"
+            >
+              <h3 class="text-lg font-semibold text-white mb-3">24 Months</h3>
+              <div class="flex flex-col space-y-2">
+                <span id="result-24" class="text-2xl font-bold text-green-400"
+                  >₱0.00</span
+                >
+                <button
+                  onclick="copyResult('result-24')"
+                  class="mt-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-colors duration-200"
+                >
+                  Copy Amount
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Add JavaScript files -->
+    <script type="module">
+      import SideNavigation from "./SideNavigation.js";
+      new SideNavigation();
+    </script>
+    <script src="./calculator.js"></script>
+  </body>
+</html>

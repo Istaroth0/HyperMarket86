@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Calculator - HyperMarket</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../CSS/calculator.css" />
+    <!-- Side Navigation CSS -->
+    <link rel="stylesheet" href="../Utils/sideNav.css" />
+    <style>
+      /* Admin Calculator - Soft, Professional, and Modern Look */
+      body {
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        background-color: #181b1f;
+        background-image: linear-gradient(to bottom right, #181b1f, #232b2f);
+        color: #e6f4fa;
+        font-size: 1.08rem;
+        letter-spacing: 0.01em;
+      }
+
+      /* Card container styles */
+      .admin-calc-card,
+      .input-card,
+      .results-card {
+        background: linear-gradient(135deg, #1a1d21 60%, #232b2f 100%);
+        border-radius: 1.25rem;
+        box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.1);
+        border: 1.5px solid #232b2f;
+      }
+
+      input[type="number"] {
+        background: #23272b !important;
+        color: #e6f4fa;
+        border-radius: 0.7rem;
+        font-size: 1.08rem;
+        padding: 0.9rem 1rem;
+        border: 1.5px solid #232b2f;
+        transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+      }
+
+      input[type="number"]:focus {
+        background-color: #2f3237 !important;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px #3b82f633;
+      }
+
+      label {
+        color: #b0b8c1;
+        font-weight: 600;
+        font-size: 1.01rem;
+        margin-bottom: 0.3rem;
+      }
+
+      button[type="button"],
+      button,
+      .bg-blue-600,
+      .bg-blue-500 {
+        background: linear-gradient(
+          90deg,
+          #3b82f6 60%,
+          #60a5fa 100%
+        ) !important;
+        color: #fff !important;
+        font-weight: 700;
+        font-size: 1.08rem;
+        border-radius: 0.8rem;
+        box-shadow: 0 2px 8px 0 rgba(59, 130, 246, 0.08);
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+      }
+
+      button:hover,
+      .bg-blue-600:hover,
+      .bg-blue-500:hover {
+        background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 100%) !important;
+        color: #23272b !important;
+        box-shadow: 0 4px 16px 0 rgba(59, 130, 246, 0.18);
+        outline: none;
+        transform: scale(1.03);
+      }
+
+      h1,
+      .font-bold {
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        font-weight: 800;
+        color: #e6f4fa;
+        letter-spacing: 0.01em;
+        text-shadow: 0 2px 8px #3b82f622;
+      }
+
+      h2,
+      h3 {
+        color: #e6f4fa;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .result-card {
+        background: #232b2f !important;
+        border-radius: 1rem;
+        box-shadow: 0 2px 8px 0 rgba(59, 130, 246, 0.08);
+      }
+
+      .text-blue-400 {
+        color: #60a5fa !important;
+      }
+
+      /* Responsive tweaks for zoomed, soft look */
+      @media (max-width: 900px) {
+        .admin-calc-card,
+        .input-card,
+        .results-card {
+          padding: 1.5rem 1rem !important;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .admin-calc-card,
+        .input-card,
+        .results-card {
+          padding: 1.1rem 0.5rem !important;
+        }
+        h1 {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen">
+    <script type="module">
+      import AdminSideNav from "./adminSideNav.js";
+      new AdminSideNav();
+    </script>
+    <main class="container mx-auto px-4 py-8">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-white mb-6">
+          Admin Loan Calculator
+        </h1>
+
+        <!-- Input Card -->
+        <div class="bg-[#1a1d21] p-6 rounded-lg shadow-lg mb-6">
+          <div class="grid gap-6">
+            <!-- Loan Amount -->
+            <div class="form-group">
+              <label
+                for="loan-amount"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Loan Amount (PHP):</label
+              >
+              <input
+                type="number"
+                id="loan-amount"
+                class="bg-[#2a2d31] border border-gray-700 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
+                placeholder="Enter loan amount"
+              />
+            </div>
+
+            <!-- Customer Down -->
+            <div class="form-group">
+              <label
+                for="customer-down-payment"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Customer's Down Payment (PHP):</label
+              >
+              <input
+                type="number"
+                id="customer-down-payment"
+                class="bg-[#2a2d31] border border-gray-700 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
+                placeholder="Enter customer's down payment"
+              />
+            </div>
+
+            <!-- Seller Down -->
+            <div class="form-group">
+              <label
+                for="seller-down-payment"
+                class="block text-sm font-medium text-gray-300 mb-2"
+                >Seller's Down Payment (PHP):</label
+              >
+              <input
+                type="number"
+                id="seller-down-payment"
+                class="bg-[#2a2d31] border border-gray-700 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
+                placeholder="Enter seller's down payment"
+              />
+            </div>
+
+            <!-- Calculate Button -->
+            <button
+              onclick="calculateAll()"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300"
+            >
+              Calculate
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="bg-[#1a1d21] p-6 rounded-lg shadow-lg">
+          <h2 class="text-2xl font-bold text-white mb-4">Monthly Payments</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- 48 Months -->
+            <div
+              class="bg-[#2a2d31] p-6 rounded-lg transform transition-all duration-300 hover:scale-105"
+            >
+              <h3 class="text-lg font-semibold text-white mb-3">48 Months</h3>
+              <div class="flex flex-col space-y-2">
+                <span id="result-48" class="text-2xl font-bold text-blue-400"
+                  >₱0.00</span
+                >
+                <button
+                  onclick="copyResult('result-48')"
+                  class="mt-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-lg transition-colors duration-200"
+                >
+                  Copy Amount
+                </button>
+              </div>
+            </div>
+
+            <!-- 36 Months -->
+            <div
+              class="bg-[#2a2d31] p-6 rounded-lg transform transition-all duration-300 hover:scale-105"
+            >
+              <h3 class="text-lg font-semibold text-white mb-3">36 Months</h3>
+              <div class="flex flex-col space-y-2">
+                <span id="result-36" class="text-2xl font-bold text-blue-400"
+                  >₱0.00</span
+                >
+                <button
+                  onclick="copyResult('result-36')"
+                  class="mt-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-lg transition-colors duration-200"
+                >
+                  Copy Amount
+                </button>
+              </div>
+            </div>
+
+            <!-- 24 Months -->
+            <div
+              class="bg-[#2a2d31] p-6 rounded-lg transform transition-all duration-300 hover:scale-105"
+            >
+              <h3 class="text-lg font-semibold text-white mb-3">24 Months</h3>
+              <div class="flex flex-col space-y-2">
+                <span id="result-24" class="text-2xl font-bold text-blue-400"
+                  >₱0.00</span
+                >
+                <button
+                  onclick="copyResult('result-24')"
+                  class="mt-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-lg transition-colors duration-200"
+                >
+                  Copy Amount
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Add JavaScript files -->
+    <script src="../Javascript/adminCalculator.js"></script>
+  </body>
+</html>
