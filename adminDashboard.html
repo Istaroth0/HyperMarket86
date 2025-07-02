@@ -129,6 +129,31 @@
     <main class="container mx-auto px-4 py-8">
       <div class="max-w-4xl mx-auto">
         <!-- Admin Dashboard content will be injected by adminDashboard.js -->
+        <!-- Notification UI will be injected here as well -->
+        <div id="admin-notification-area">
+          <!-- Fallback: visible notification input area before JS loads -->
+          <div class="bg-[#232b2f] rounded-xl shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-bold text-white mb-4">
+              Send Notification to Agent
+            </h2>
+            <div class="flex flex-col md:flex-row gap-4">
+              <input
+                type="text"
+                maxlength="200"
+                class="flex-1 p-3 rounded-lg bg-[#181b1f] border border-gray-700 text-white focus:ring-blue-500 focus:border-blue-500 transition"
+                placeholder="Type your notification here..."
+              />
+              <button
+                class="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold rounded-lg shadow hover:from-blue-600 hover:to-blue-800 transition"
+              >
+                Send
+              </button>
+            </div>
+            <div class="mt-2 text-sm text-gray-400">
+              Loading notification system...
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -140,4 +165,5 @@
     <script type="module" src="adminDashboard.js"></script>
   </body>
 </html>
+  </body>
 </html>

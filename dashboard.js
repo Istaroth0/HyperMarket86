@@ -1,5 +1,12 @@
 // Import Firebase configuration
-import { auth } from '../Utils/firebaseConfig.js';
+import { auth, db } from '../Utils/firebaseConfig.js';
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
 // Check if user is authenticated
 auth.onAuthStateChanged((user) => {
@@ -41,6 +48,38 @@ dashboardContainer.innerHTML = `
     </div>
   </div>
 `;
+
+// --- Agent Notification Area ---
+const agentNotificationArea = document.getElementById('agent-notification-area');
+agentNotificationArea.innerHTML = `
+  <div id="agent-notification-card" class="hidden bg-gradient-to-r from-blue-600 to-blue-400 rounded-xl shadow-lg p-6 mb-8 mt-6 flex items-center">
+    <div class="flex-1">
+      <div class="text-white text-lg font-semibold mb-1">📢 Admin Notification</div>
+      <div id="agent-notification-message" class="text-white text-base"></div>
+      <div id="agent-notification-time" class="text-xs text-blue-100 mt-2"></div>
+    </div>
+  </div>
+`;
+
+// --- Listen for latest notification ---
+const notificationsQuery = query(
+  collection(db, 'notifications'),
+  orderBy('timestamp', 'desc'),
+  limit(1)
+);
+onSnapshot(notificationsQuery, (snapshot) => {
+  const card = document.getElementById('agent-notification-card');
+  if (snapshot.empty) {
+    card.classList.add('hidden');
+    return;
+  }
+  const data = snapshot.docs[0].data();
+  document.getElementById('agent-notification-message').textContent = data.message;
+  document.getElementById('agent-notification-time').textContent = data.timestamp?.toDate
+    ? "Sent: " + data.timestamp.toDate().toLocaleString()
+    : "";
+  card.classList.remove('hidden');
+});
 
 // --- Logout functionality ---
 const logoutBtn = document.getElementById('logoutBtn');
